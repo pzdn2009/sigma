@@ -16,8 +16,14 @@ import java.util.Date;
 public class DomainAudit {
     private String createUser;
     private Date createDate;
+    private String updateUser;
+    private Date updateDate;
 
     public DomainAudit() {
         createDate = new Date();
+        createUser = "system";
+
+        updateDate = new Date();
+        updateUser = "system";
     }
 }

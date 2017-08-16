@@ -1,7 +1,12 @@
 package com.l3lab.domain.service;
 
+import com.l3lab.common.PagingResult;
 import com.l3lab.web.model.requeset.CreateTaskRequestDto;
+import com.l3lab.web.model.requeset.EditTaskRequestDto;
+import com.l3lab.web.model.requeset.QueryTaskRequestDto;
 import com.l3lab.web.model.response.TaskResponseDto;
+
+import java.util.List;
 
 /**
  * Summary:
@@ -12,6 +17,9 @@ import com.l3lab.web.model.response.TaskResponseDto;
  * Desc: {描述}
  */
 public interface TaskDomainService {
+    List<TaskResponseDto> getAllTask();
     TaskResponseDto getTask(Long id);
-    void createTask(CreateTaskRequestDto createTaskRequestDto);
+    TaskResponseDto createTask(CreateTaskRequestDto createTaskRequestDto);
+    TaskResponseDto editTask(EditTaskRequestDto editTaskRequestDto);
+    PagingResult<List<TaskResponseDto>> getTasks(QueryTaskRequestDto queryTaskRequestDto);
 }
