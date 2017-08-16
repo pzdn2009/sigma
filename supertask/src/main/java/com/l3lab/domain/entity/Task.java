@@ -1,10 +1,10 @@
 package com.l3lab.domain.entity;
 
-import com.l3lab.domain.DomainAudit;
 import com.l3lab.domain.valueobject.TaskStatus;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Summary:
@@ -18,7 +18,7 @@ import javax.persistence.*;
 @Table(uniqueConstraints = {
         @UniqueConstraint(columnNames = "title")
 })
-public class Task extends DomainAudit {
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,9 +26,20 @@ public class Task extends DomainAudit {
     private String title;
     private String detail;
     private TaskStatus taskStatus;
+    private String tags;
+
+    private String createUser;
+    private Date createDate;
+    private String updateUser;
+    private Date updateDate;
 
     public Task() {
-        super();
+        createDate = new Date();
+        createUser = "system";
+
+        updateDate = new Date();
+        updateUser = "system";
+
         taskStatus = TaskStatus.CREATED;
     }
 
