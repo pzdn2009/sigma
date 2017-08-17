@@ -55,6 +55,7 @@
         button.disabled = true;
         button.nextElementSibling.disabled = false;
         __log('Recording...');
+        ws.send("start");
     }
 
     function stopRecording(button) {
@@ -67,10 +68,15 @@
         createDownloadLink();
 
         recorder.clear();
+        ws.send("stop");
     }
 
     function createDownloadLink() {
         recorder && recorder.exportWAV(function (blob) {
+
+            console.log(blob);
+            __log(blob);
+
             var url = URL.createObjectURL(blob);
             var li = document.createElement('li');
             var au = document.createElement('audio');
@@ -84,6 +90,10 @@
             li.appendChild(au);
             li.appendChild(hf);
             recordingslist.appendChild(li);
+
+            ws.send("blob");
+            ws.send(blob);
+            recorder.clear();
         });
     }
 
@@ -105,6 +115,20 @@
             __log('No live audio input: ' + e);
         });
     };
+
+    var ws = new WebSocket("ws://127.0.0.1:8093/ws/receive_audio");
+    ws.onopen = function () {
+        console.log("Openened connection to websocket");
+    };
+    ws.onclose = function () {
+        console.log("Close connection to websocket");
+    }
+    ws.onmessage = function (e) {
+        __log("e.data:"+ e.data);
+    }
+    ws.onerror =function (e) {
+        __log("error:"+ e);
+    }
 </script>
 
 <script src="js/recorder/dist/recorder.js"></script>
