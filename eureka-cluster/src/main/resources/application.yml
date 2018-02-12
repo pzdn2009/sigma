@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: eureka-server
+  profiles:
+    active: server1
+eureka:
+  server:
+    enable-self-preservation: false
+  client:
+    fetch-registry: true
+    register-with-eureka: true
